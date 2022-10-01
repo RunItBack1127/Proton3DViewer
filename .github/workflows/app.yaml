@@ -1,0 +1,7 @@
+runtime: python39
+
+instance_class: B1
+service: Proton-AppEngine-Deploy
+basic_scaling:
+  max_instances: 1
+  idle_timeout: 5m
