@@ -5,3 +5,10 @@ service: proton3dviewer
 basic_scaling:
   max_instances: 1
   idle_timeout: 5m
+handlers:
+  - url: .*
+    static_files: dist/index.html
+    upload: dist/index.html
+
+  - url: /assets
+    static_files: dist/assets
