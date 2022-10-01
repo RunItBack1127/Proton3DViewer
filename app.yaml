@@ -1,4 +1,4 @@
-runtime: python39
+runtime: nodejs12
 
 instance_class: B1
 service: Proton-AppEngine-Deploy
