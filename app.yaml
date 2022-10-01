@@ -2,3 +2,14 @@ runtime: nodejs16
 
 instance_class: F1
 service: proton3dviewer
+handlers:
+  - url: /assets
+    static_dir: dist/assets/
+
+  - url: /favicon.ico
+    static_files: dist/proton.ico
+    upload: dist/proton.ico
+
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
