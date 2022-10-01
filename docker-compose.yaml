@@ -18,7 +18,7 @@ services:
       - static_files:/usr/share/nginx/html
       - ./proxy/default.conf:/etc/nginx/templates/default.conf.template
     depends_on:
-      app
+      - app
 
 volumes:
   static_files:
