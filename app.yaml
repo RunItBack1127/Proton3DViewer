@@ -7,8 +7,8 @@ handlers:
     static_dir: dist/assets/
 
   - url: /favicon.ico
-    static_files: dist/proton.ico
-    upload: dist/proton.ico
+    static_files: dist/favicon.ico
+    upload: dist/favicon.ico
 
   - url: /
     static_files: dist/index.html
