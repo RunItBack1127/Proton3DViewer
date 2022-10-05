@@ -7,7 +7,6 @@
 html {
     --site-color-1: #ffffff;
     --site-color-2: #000000;
-    --site-font: Poppins, sans-serif;
 }
 
 a {
@@ -21,4 +20,8 @@ button {
     cursor: pointer;
     background: none;
     border: none;
+}
+
+body {
+    font-family: Poppins, sans-serif;
 }

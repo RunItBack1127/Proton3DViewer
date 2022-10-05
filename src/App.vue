@@ -7,6 +7,6 @@ import SiteHeader from './components/SiteHeader.vue';
     <SiteHeader />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
