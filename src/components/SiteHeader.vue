@@ -26,7 +26,9 @@ import SlidingButton from '@/components/SlidingButton.vue';
 
 export default defineComponent({
     name: 'SiteHeader',
-    components: SlidingButton
+    components: {
+        SlidingButton
+    }
 });
 </script>
 
