@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SiteHeader from './components/SiteHeader.vue';
+import LoadingScreen from './components/LoadingScreen.vue';
 
 </script>
 
@@ -19,6 +20,7 @@ import SiteHeader from './components/SiteHeader.vue';
             <p>v1.0</p>
         </footer>
     </main>
+    <LoadingScreen />
 </template>
 
 <style scoped lang="scss">
