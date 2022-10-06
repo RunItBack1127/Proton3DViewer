@@ -2,7 +2,7 @@
     <header>
         <nav>
             <div class="menuOptionsContainer">
-                <button>
+                <button class="optionAvailable">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M7.05 40q-1.2 0-2.1-.925-.9-.925-.9-2.075V11q0-1.15.9-2.075Q5.85 8 7.05 8h14l3 3h17q1.15 0 2.075.925.925.925.925 2.075v23q0 1.15-.925 2.075Q42.2 40 41.05 40Zm0-29v26h34V14H22.8l-3-3H7.05Zm0 0v26Z"/></svg>
                 </button>
                 <button>
@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="displayNameContainer">
-                <h1>UE_MEGABOOM.gltf</h1>
+                <h1></h1>
             </div>
             <SlidingButton />
         </nav>
@@ -38,17 +38,18 @@ header {
     height: 100px;
 
     nav {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 175px auto 250px;
         align-items: center;
         width: 90%;
         height: 100%;
         margin: auto;
+        position: relative;
 
         .menuOptionsContainer {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
             button {
                 display: flex;
@@ -60,12 +61,16 @@ header {
                 svg {
                     width: inherit;
                     height: inherit;
-                    opacity: 0.5;
+                    opacity: 0.1;
                     transition: opacity 150ms ease;
                 }
             }
 
-            button:hover svg {
+            button.optionAvailable svg {
+                opacity: 0.5;
+            }
+
+            button.optionAvailable:hover svg {
                 opacity: 1.0;
             }
         }
