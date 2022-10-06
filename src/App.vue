@@ -66,9 +66,9 @@ main {
     .uploadContainer {
 
         width: 100%;
-        height: 65px;
+        height: 75px;
         max-width: 600px;
-        margin-top: 80px;
+        margin-top: 75px;
 
         label {
             display: flex;
