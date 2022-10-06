@@ -81,11 +81,22 @@ main {
             height: 100%;
             cursor: pointer;
             background: #000;
-            color: #fff;
+            border: 2px solid #000;
+            color: #000;
             text-align: center;
             font-size: 1.35rem;
             font-weight: 300;
             border-radius: 10px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-image: linear-gradient(to right, #000, #000);
+            background-size: 0%;
+            transition: background-size 150ms ease, color 150ms ease;
+            
+            &:hover {
+                background-size: 100%;
+                color: #fff;
+            }
         }
     }
 
