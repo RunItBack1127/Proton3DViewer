@@ -1,5 +1,5 @@
 <template>
-    <div class="loadingContainer">
+    <div :class="isLoadingModel ? 'showLoadingScreen' : ''" class="loadingContainer">
 
         <!-- Adapted from SpinKit | Simple CSS Spinners -->
         <!-- https://tobiasahlin.com/spinkit/ -->
@@ -12,10 +12,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useUploadStore } from '../store/upload';
 
 export default defineComponent({
-    name: 'LoadingScreen'
+    name: 'LoadingScreen',
+    data() {
+        const uploadStore = useUploadStore();
+
+        return {
+            isLoadingModel: computed(() => uploadStore.isLoadingModel)
+        }
+    }
 });
 </script>
 
@@ -60,6 +68,10 @@ export default defineComponent({
             animation-delay: calc(var(--bounce-delay) / 2);
         }
     }
+}
+
+.loadingContainer.showLoadingScreen {
+    display: flex;
 }
 
 @-webkit-keyframes sk-bouncedelay {
