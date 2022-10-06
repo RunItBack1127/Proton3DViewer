@@ -51,13 +51,11 @@ a.githubContainer {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 20px;
-        height: 20px;
         fill: #222;
         position: absolute;
         right: 0;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         z-index: 100;
         border-radius: 50px;
         transform: translateX(-20px);
