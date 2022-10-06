@@ -10,10 +10,13 @@ import {
     Vector3,
     WebGLRenderer
 } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { MapControls, OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { Rotation } from './Rotation';
 import { useUploadStore } from '../../store/upload';
+
+let camera: PerspectiveCamera;
+let boundingSphere: Sphere;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -29,7 +32,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
     PROTON_SCENE.add( mainLight, spotLight );
 
-    const camera = new PerspectiveCamera( 45, window.innerWidth / ( window.innerHeight - 100 ), 0.1, 1000000 );
+    camera = new PerspectiveCamera( 45, window.innerWidth / ( window.innerHeight - 100 ), 0.1, 1000000 );
     const renderer = new WebGLRenderer({
         alpha: true,
         antialias: true
@@ -50,14 +53,10 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     model.translateZ( -modelCenter.z );
 
     const updatedModelBox = new Box3().setFromObject( model );
-    const boundingSphere = new Sphere();
+    boundingSphere = new Sphere();
     updatedModelBox.getBoundingSphere( boundingSphere );
 
-    camera.position.set(
-        1.65 * ( boundingSphere.center.x + boundingSphere.radius ),
-        1.65 * ( boundingSphere.center.y + boundingSphere.radius ),
-        1.65 * ( boundingSphere.center.z + boundingSphere.radius )
-    );
+    resetProtonCamera();
 
     const group = new Group();
     group.add( model );
@@ -95,4 +94,12 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     animate();
 }
 
-export { onModelLoaded };
+function resetProtonCamera() {
+    camera.position.set(
+        1.65 * ( boundingSphere.center.x + boundingSphere.radius ),
+        1.65 * ( boundingSphere.center.y + boundingSphere.radius ),
+        1.65 * ( boundingSphere.center.z + boundingSphere.radius )
+    );
+}
+
+export { onModelLoaded, resetProtonCamera };
