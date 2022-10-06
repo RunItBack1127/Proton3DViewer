@@ -1,4 +1,8 @@
+import { getAssociatedLoader } from './loaders/loader';
 import { InvalidFileExtensionError } from './InvalidFileExtensionError';
+import { Object3D } from 'three';
+import { Rotation } from './graphics/Rotation';
+import { onModelLoaded } from './graphics/GraphicsBundle';
 
 const VALID_FILE_EXTENSIONS = [
     "obj",
@@ -10,13 +14,15 @@ const VALID_FILE_EXTENSIONS = [
     "stl"
 ];
 
-function uploadModelFile( filename: string ) {
+function uploadModelFile( file: File ) {
+    const filename = file.name;
     const fileExtension = parseFileExtension( filename );
     if( !isValidFileExtension( fileExtension ) ) {
         throw new InvalidFileExtensionError();
     }
-
-    // Get appropriate loader from GraphicsBundle
+    
+    const loader = getAssociatedLoader( filename );
+    loader.load( file, onModelLoaded );
 }
 
 function delimitFileName( filename: string ) {
@@ -38,5 +44,6 @@ function isValidFileExtension( extension: string ) {
 export {
     delimitFileName,
     isValidFileExtension,
+    parseFileExtension,
     uploadModelFile
 };

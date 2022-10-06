@@ -13,16 +13,15 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import { Rotation } from './Rotation';
+import { useUploadStore } from '../../store/upload';
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
     const PROTON_SCENE = new Scene();
     PROTON_SCENE.background = null;
 
-    const mainLight = new AmbientLight( 0xffffff );
-    const spotLight = new DirectionalLight( 0x555555 );
-
-    let currentModelGroup = null;
+    const mainLight = new AmbientLight( 0x555555 );
+    const spotLight = new DirectionalLight( 0xcccccc );
 
     const PROTON_CANVAS = document.querySelector('.modelContainer');
     PROTON_CANVAS?.childNodes.forEach((node) => {
@@ -30,12 +29,12 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
     PROTON_SCENE.add( mainLight, spotLight );
 
-    const camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10000 );
+    const camera = new PerspectiveCamera( 45, window.innerWidth / ( window.innerHeight - 100 ), 0.1, 1000000 );
     const renderer = new WebGLRenderer({
         alpha: true,
         antialias: true
     });
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 
     const controls = new OrbitControls( camera, renderer.domElement );
     PROTON_CANVAS?.appendChild( renderer.domElement );
@@ -63,16 +62,22 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     const group = new Group();
     group.add( model );
 
-    group.rotateX( rotation.getX() );
-    group.rotateY( rotation.getY() );
-    group.rotateZ( rotation.getZ() );
+    if( rotation ) {
+        group.rotateX( rotation.getX() );
+        group.rotateY( rotation.getY() );
+        group.rotateZ( rotation.getZ() );
+    }
 
     PROTON_SCENE.add( group );
 
+    const uploadStore = useUploadStore();
+    uploadStore.setIsLoadingModel( false );
+    uploadStore.setIsDisplayingModel( true );
+
     function resize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = window.innerWidth / ( window.innerHeight - 100 );
         camera.updateProjectionMatrix();
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( window.innerWidth, window.innerHeight - 100 );
         renderer.render( PROTON_SCENE, camera );
     }
     resize();

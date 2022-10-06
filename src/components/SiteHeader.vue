@@ -58,16 +58,16 @@ export default defineComponent({
             if( files ) {
                 const inputFile = files[ 0 ];
                 try {
-                    uploadModelFile( inputFile.name );
+                    uploadModelFile( inputFile );
+                    //this.displayModel( inputFile.name );
                     this.setCurrentModelName( inputFile.name );
-                    this.setIsDisplayingModel( true );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
-                        
+                        this.setIsLoadingModel( false );
+                        this.setIsDisplayingModel( false );
+                        this.setCurrentModelName("");
                     }
                     console.error( e );
-                } finally {
-                    this.setIsLoadingModel( false );
                 }
             }
         }

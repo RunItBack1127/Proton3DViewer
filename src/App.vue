@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import SiteHeader from './components/SiteHeader.vue';
 import LoadingScreen from './components/LoadingScreen.vue';
-import { useUploadStore } from './store/upload';
 import { computed } from 'vue';
+
+import { useUploadStore } from './store/upload';
 
 const uploadStore = useUploadStore();
 const isLoadingModel = computed(() => uploadStore.isLoadingModel);
@@ -12,7 +13,7 @@ const isDisplayingModel = computed(() => uploadStore.isDisplayingModel);
 
 <template>
     <SiteHeader />
-    <div class="modelContainer"></div>
+    <div v-show="isDisplayingModel" class="modelContainer"></div>
     <main v-show="!isLoadingModel && !isDisplayingModel">
         <div class="introMessageContainer">
             <h1>Proton, a minimal 3D viewer.</h1>
@@ -37,12 +38,6 @@ main {
     align-items: center;
     width: 100vw;
     height: calc(100vh - 100px);
-
-    .modelContainer {
-        display: none;
-        width: 100%;
-        height: calc(100vh - 100px);
-    }
 
     .introMessageContainer {
         display: flex;
@@ -103,5 +98,10 @@ main {
             font-weight: 200;
         }
     }
+}
+
+.modelContainer {
+    width: 100%;
+    height: calc(100vh - 100px);
 }
 </style>
