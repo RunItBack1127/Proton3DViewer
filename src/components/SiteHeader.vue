@@ -63,10 +63,12 @@ export default defineComponent({
                     this.setCurrentModelName( inputFile.name );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
-                        this.setIsLoadingModel( false );
-                        this.setIsDisplayingModel( false );
-                        this.setCurrentModelName("");
+                        
                     }
+                    this.setIsLoadingModel( false );
+                    this.setIsDisplayingModel( false );
+                    this.setCurrentModelName("");
+                    
                     console.error( e );
                 }
             }

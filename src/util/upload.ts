@@ -1,8 +1,7 @@
 import { getAssociatedLoader } from './loaders/loader';
 import { InvalidFileExtensionError } from './InvalidFileExtensionError';
-import { Object3D } from 'three';
-import { Rotation } from './graphics/Rotation';
 import { onModelLoaded } from './graphics/GraphicsBundle';
+import { Object3D } from 'three';
 
 const VALID_FILE_EXTENSIONS = [
     "obj",
@@ -22,7 +21,9 @@ function uploadModelFile( file: File ) {
     }
     
     const loader = getAssociatedLoader( filename );
-    loader.load( file, onModelLoaded );
+    loader.load( file, (model: Object3D) => {
+        onModelLoaded( model, loader.getRotation() );
+    });
 }
 
 function delimitFileName( filename: string ) {

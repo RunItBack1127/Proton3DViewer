@@ -31,7 +31,7 @@ abstract class CustomLoader {
      * an Object3D which is then shown to
      * the user
      */
-    private complete: Function | null;
+    protected complete: Function | null;
 
     /**
      * Defines a default rotation offset for the

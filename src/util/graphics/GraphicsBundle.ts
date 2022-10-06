@@ -61,7 +61,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
     const group = new Group();
     group.add( model );
-
+    
     if( rotation ) {
         group.rotateX( rotation.getX() );
         group.rotateY( rotation.getY() );
