@@ -25,3 +25,8 @@ button {
 body {
     font-family: Poppins, sans-serif;
 }
+
+label {
+    display: block;
+    font-family: var(--site-font);
+}
