@@ -10,12 +10,11 @@ import {
     Vector3,
     WebGLRenderer
 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import {
-    OrbitControls
-} from 'three/examples/jsm/controls/OrbitControls';
+import { Rotation } from './Rotation';
 
-function onModelLoaded( model: Object3D, rotation ) {
+function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
     const PROTON_SCENE = new Scene();
     PROTON_SCENE.background = null;
