@@ -19,12 +19,24 @@ function uploadModelFile( filename: string ) {
     // Get appropriate loader from GraphicsBundle
 }
 
+function delimitFileName( filename: string ) {
+    const extIndex = filename.lastIndexOf('.');
+    const properName = filename.slice(0, extIndex);
+    const extension = filename.slice(extIndex + 1, filename.length);
+
+    return [properName, extension];
+}
+
 function parseFileExtension( filename: string ) {
-    return filename.slice(filename.lastIndexOf('.') + 1, filename.length);
+    return delimitFileName( filename )[ 1 ];
 }
 
 function isValidFileExtension( extension: string ) {
     return VALID_FILE_EXTENSIONS.includes( extension );
 }
 
-export { uploadModelFile, isValidFileExtension };
+export {
+    delimitFileName,
+    isValidFileExtension,
+    uploadModelFile
+};

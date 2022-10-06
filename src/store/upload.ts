@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { delimitFileName } from "../util/upload";
 
 const useUploadStore = defineStore('upload', () => {
     const isLoadingModel = ref(false);
@@ -10,10 +11,21 @@ const useUploadStore = defineStore('upload', () => {
         isLoadingModel.value = loading;
     }
 
+    function setIsDisplayingModel( displaying: boolean ) {
+        isDisplayingModel.value = displaying;
+    }
+
+    function setCurrentModelName( modelName: string ) {
+        const [properName, extension] = delimitFileName( modelName );
+        currentModelName.value = properName.toUpperCase().concat('.').concat( extension );
+    }
+
     return {
         isLoadingModel,
         isDisplayingModel,
-        setIsLoadingModel
+        currentModelName,
+        setIsLoadingModel,
+        setCurrentModelName
     }
 });
 

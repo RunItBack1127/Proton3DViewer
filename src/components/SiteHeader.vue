@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="displayNameContainer">
-                <h1></h1>
+                <h1>{{ currentModelName }}</h1>
             </div>
             <SlidingButton />
         </nav>
@@ -40,7 +40,9 @@ export default defineComponent({
 
         return {
             setIsLoadingModel: uploadStore.setIsLoadingModel,
-            isDisplayingModel: computed(() => uploadStore.isDisplayingModel)
+            setCurrentModelName: uploadStore.setCurrentModelName,
+            isDisplayingModel: computed(() => uploadStore.isDisplayingModel),
+            currentModelName: computed(() => uploadStore.currentModelName)
         }
     },
     methods: {
@@ -55,6 +57,7 @@ export default defineComponent({
                 const inputFile = files[ 0 ];
                 try {
                     uploadModelFile( inputFile.name );
+                    this.setCurrentModelName( inputFile.name );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
                         
