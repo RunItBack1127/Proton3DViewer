@@ -25,6 +25,7 @@ const useUploadStore = defineStore('upload', () => {
         isDisplayingModel,
         currentModelName,
         setIsLoadingModel,
+        setIsDisplayingModel,
         setCurrentModelName
     }
 });

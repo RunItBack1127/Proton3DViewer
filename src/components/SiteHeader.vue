@@ -40,6 +40,7 @@ export default defineComponent({
 
         return {
             setIsLoadingModel: uploadStore.setIsLoadingModel,
+            setIsDisplayingModel: uploadStore.setIsDisplayingModel,
             setCurrentModelName: uploadStore.setCurrentModelName,
             isDisplayingModel: computed(() => uploadStore.isDisplayingModel),
             currentModelName: computed(() => uploadStore.currentModelName)
@@ -49,6 +50,7 @@ export default defineComponent({
         uploadFile( input: Event ) {
 
             this.setIsLoadingModel( true );
+            this.setIsDisplayingModel( false );
             
             const target = input.target as HTMLInputElement;
             const files = target.files;
@@ -58,6 +60,7 @@ export default defineComponent({
                 try {
                     uploadModelFile( inputFile.name );
                     this.setCurrentModelName( inputFile.name );
+                    this.setIsDisplayingModel( true );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
                         

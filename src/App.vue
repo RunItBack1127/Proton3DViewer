@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import SiteHeader from './components/SiteHeader.vue';
 import LoadingScreen from './components/LoadingScreen.vue';
+import { useUploadStore } from './store/upload';
+import { computed } from 'vue';
+
+const uploadStore = useUploadStore();
+const isLoadingModel = computed(() => uploadStore.isLoadingModel);
+const isDisplayingModel = computed(() => uploadStore.isDisplayingModel);
 
 </script>
 
 <template>
     <SiteHeader />
     <div class="modelContainer"></div>
-    <main>
+    <main v-show="!isLoadingModel && !isDisplayingModel">
         <div class="introMessageContainer">
             <h1>Proton, a minimal 3D viewer.</h1>
             <h2>A 3D model viewer designed to get out of your way!</h2>
