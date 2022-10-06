@@ -27,6 +27,8 @@
 import { computed, defineComponent } from 'vue';
 import SlidingButton from '@/components/SlidingButton.vue';
 import { useUploadStore } from '../store/upload';
+import { uploadModelFile } from '../util/upload';
+import { InvalidFileExtensionError } from '../util/InvalidFileExtensionError';
 
 export default defineComponent({
     name: 'SiteHeader',
@@ -43,7 +45,7 @@ export default defineComponent({
     },
     methods: {
         uploadFile( input: Event ) {
-            
+
             this.setIsLoadingModel( true );
             
             const target = input.target as HTMLInputElement;
@@ -51,6 +53,16 @@ export default defineComponent({
 
             if( files ) {
                 const inputFile = files[ 0 ];
+                try {
+                    uploadModelFile( inputFile.name );
+                } catch( e ) {
+                    if( e instanceof InvalidFileExtensionError ) {
+                        
+                    }
+                    console.error( e );
+                } finally {
+                    this.setIsLoadingModel( false );
+                }
             }
         }
     }
