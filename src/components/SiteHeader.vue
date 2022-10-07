@@ -65,7 +65,6 @@ export default defineComponent({
                 const inputFile = files[ 0 ];
                 try {
                     uploadModelFile( inputFile );
-                    //this.displayModel( inputFile.name );
                     this.setCurrentModelName( inputFile.name );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
