@@ -45,6 +45,7 @@ export default defineComponent({
         return {
             setIsLoadingModel: uploadStore.setIsLoadingModel,
             setIsDisplayingModel: uploadStore.setIsDisplayingModel,
+            setIsShowingErrorModal: uploadStore.setIsShowingErrorModal,
             setCurrentModelName: uploadStore.setCurrentModelName,
             isLoadingModel: computed(() => uploadStore.isLoadingModel),
             isDisplayingModel: computed(() => uploadStore.isDisplayingModel),
@@ -68,7 +69,10 @@ export default defineComponent({
                     this.setCurrentModelName( inputFile.name );
                 } catch( e ) {
                     if( e instanceof InvalidFileExtensionError ) {
-                        
+                        this.setIsShowingErrorModal( true );
+                        setTimeout(() => {
+                            this.setIsShowingErrorModal( false );
+                        }, 2500);
                     }
                     this.setIsLoadingModel( false );
                     this.setIsDisplayingModel( false );

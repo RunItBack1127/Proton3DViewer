@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import SiteHeader from './components/SiteHeader.vue';
 import LoadingScreen from './components/LoadingScreen.vue';
-import { computed } from 'vue';
+import Modal from './components/Modal.vue';
 
 import { useUploadStore } from './store/upload';
+import { computed, ref } from 'vue';
 
 const uploadStore = useUploadStore();
 const isLoadingModel = computed(() => uploadStore.isLoadingModel);
 const isDisplayingModel = computed(() => uploadStore.isDisplayingModel);
+const isShowingErrorModal = computed(() => uploadStore.isShowingErrorModal);
 
 </script>
 
@@ -28,6 +30,10 @@ const isDisplayingModel = computed(() => uploadStore.isDisplayingModel);
         </footer>
     </main>
     <LoadingScreen />
+    <Modal
+        :display="isShowingErrorModal"
+        message="Proton does not currently support files with this extension."
+        />
 </template>
 
 <style scoped lang="scss">
