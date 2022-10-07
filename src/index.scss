@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    --site-color-1: #ffffff;
+    --site-color-2: #000000;
+}
+
+a {
+   display: block;
+   text-decoration: none;
+   color: var(--site-color-2);
+   font-family: var(--site-font);
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+body {
+    font-family: Poppins, sans-serif;
+}
+
+label {
+    display: block;
+    font-family: var(--site-font);
+}
