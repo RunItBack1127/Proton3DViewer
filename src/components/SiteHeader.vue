@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header :class="isLoadingModel || isDisplayingModel ? '' : 'showHeaderShadow'">
         <nav>
             <div class="menuOptionsContainer">
                 <form>
@@ -46,6 +46,7 @@ export default defineComponent({
             setIsLoadingModel: uploadStore.setIsLoadingModel,
             setIsDisplayingModel: uploadStore.setIsDisplayingModel,
             setCurrentModelName: uploadStore.setCurrentModelName,
+            isLoadingModel: computed(() => uploadStore.isLoadingModel),
             isDisplayingModel: computed(() => uploadStore.isDisplayingModel),
             currentModelName: computed(() => uploadStore.currentModelName)
         }
@@ -156,6 +157,10 @@ header {
                 text-align: center;
             }
         }
+    }
+
+    &.showHeaderShadow {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
     }
 }
 </style>

@@ -81,7 +81,7 @@ main {
             height: 100%;
             cursor: pointer;
             background: #000;
-            border: 2px solid #000;
+            border: 1px solid #000;
             color: #000;
             text-align: center;
             font-size: 1.35rem;

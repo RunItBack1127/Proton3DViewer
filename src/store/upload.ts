@@ -17,7 +17,12 @@ const useUploadStore = defineStore('upload', () => {
 
     function setCurrentModelName( modelName: string ) {
         const [properName, extension] = delimitFileName( modelName );
-        currentModelName.value = properName.toUpperCase().concat('.').concat( extension );
+        if( modelName !== "" ) {
+            currentModelName.value = properName.toUpperCase().concat('.').concat( extension );
+        }
+        else {
+            currentModelName.value = "";
+        }
     }
 
     return {
