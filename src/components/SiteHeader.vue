@@ -74,11 +74,12 @@ export default defineComponent({
                             this.setIsShowingErrorModal( false );
                         }, 2500);
                     }
+                    else {
+                        console.error( e );
+                    }
                     this.setIsLoadingModel( false );
                     this.setIsDisplayingModel( false );
                     this.setCurrentModelName("");
-
-                    console.error( e );
                 }
             }
         },
