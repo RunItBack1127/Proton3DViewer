@@ -19,7 +19,6 @@ import { useUploadStore } from '../../store/upload';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
-let controls: OrbitControls;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -42,7 +41,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
     renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 
-    controls = new OrbitControls( camera, renderer.domElement );
+    const controls = new OrbitControls( camera, renderer.domElement );
     PROTON_CANVAS?.appendChild( renderer.domElement );
 
     const initialModelBox = new Box3().setFromObject( model );
