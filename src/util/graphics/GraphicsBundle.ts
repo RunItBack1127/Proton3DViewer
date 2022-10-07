@@ -101,6 +101,10 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         TWEEN.update();
     }
     animate();
+
+    window.addEventListener('resize', () => {
+        resize();
+    });
 }
 
 function resetProtonCamera() {
