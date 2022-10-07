@@ -10,7 +10,7 @@ import {
     Vector3,
     WebGLRenderer
 } from 'three';
-import { MapControls, OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import * as TWEEN from '@tweenjs/tween.js';
 
