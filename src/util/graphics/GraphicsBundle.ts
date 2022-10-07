@@ -12,11 +12,14 @@ import {
 } from 'three';
 import { MapControls, OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+import * as TWEEN from '@tweenjs/tween.js';
+
 import { Rotation } from './Rotation';
 import { useUploadStore } from '../../store/upload';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
+let controls: OrbitControls;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -39,7 +42,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
     renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 
-    const controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
     PROTON_CANVAS?.appendChild( renderer.domElement );
 
     const initialModelBox = new Box3().setFromObject( model );
@@ -56,7 +59,11 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     boundingSphere = new Sphere();
     updatedModelBox.getBoundingSphere( boundingSphere );
 
-    resetProtonCamera();
+    camera.position.set(
+        1.65 * ( boundingSphere.center.x + boundingSphere.radius ),
+        1.65 * ( boundingSphere.center.y + boundingSphere.radius ),
+        1.65 * ( boundingSphere.center.z + boundingSphere.radius )
+    );
 
     const group = new Group();
     group.add( model );
@@ -90,6 +97,8 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         spotLight.position.copy( lightPos );
 
         renderer.render( PROTON_SCENE, camera );
+
+        TWEEN.update();
     }
     animate();
 }
