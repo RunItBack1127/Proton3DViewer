@@ -57,6 +57,7 @@ export default defineComponent({
 
             this.setIsLoadingModel( true );
             this.setIsDisplayingModel( false );
+            this.setIsShowingErrorModal( false );
             
             const target = input.target as HTMLInputElement;
             const files = target.files;

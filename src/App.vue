@@ -52,7 +52,7 @@ main {
         align-items: center;
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.25rem;
             line-height: 3rem;
             margin-bottom: 20px;
             text-align: center;
@@ -77,7 +77,7 @@ main {
         width: 100%;
         height: 75px;
         max-width: 600px;
-        margin-top: 75px;
+        margin-top: 90px;
 
         label {
             display: flex;
@@ -90,8 +90,10 @@ main {
             border: 1px solid #000;
             color: #000;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.25rem;
             font-size: 1.35rem;
-            font-weight: 300;
+            font-weight: 200;
             border-radius: 10px;
             background-color: transparent;
             background-repeat: no-repeat;

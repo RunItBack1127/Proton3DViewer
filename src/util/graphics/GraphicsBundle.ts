@@ -5,6 +5,7 @@ import {
     Group,
     Object3D,
     PerspectiveCamera,
+    Quaternion,
     Scene,
     Sphere,
     Vector3,
@@ -19,6 +20,7 @@ import { useUploadStore } from '../../store/upload';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
+let group: Group;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -64,7 +66,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         1.65 * ( boundingSphere.center.z + boundingSphere.radius )
     );
 
-    const group = new Group();
+    group = new Group();
     group.add( model );
     
     if( rotation ) {
