@@ -33,20 +33,16 @@ const useStatsStore = defineStore('stats', () => {
         return endUploadTime.value - startUploadTime.value;
     }
 
-    function getFileSize() {
-        return fileSize;
-    }
-
     return {
         numVertices,
         numTriangles,
+        fileSize,
         setNumTriangles,
         setNumVertices,
         setFileSize,
         startUpload,
         endUpload,
-        getUploadTime,
-        getFileSize
+        getUploadTime
     }
 });
 

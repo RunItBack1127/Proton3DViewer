@@ -17,6 +17,7 @@ import * as TWEEN from '@tweenjs/tween.js';
 
 import { Rotation } from './Rotation';
 import { useUploadStore } from '../../store/upload';
+import { useStatsStore } from '../../store/stats';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
@@ -105,6 +106,10 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     const uploadStore = useUploadStore();
     uploadStore.setIsLoadingModel( false );
     uploadStore.setIsDisplayingModel( true );
+
+    const statsStore = useStatsStore();
+    statsStore.setNumVertices( numVertices );
+    statsStore.setNumTriangles( numTriangles );
 
     function resize() {
         camera.aspect = window.innerWidth / ( window.innerHeight - 100 );

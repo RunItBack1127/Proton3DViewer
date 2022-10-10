@@ -1,6 +1,7 @@
 import { getAssociatedLoader } from './loaders/loader';
 import { InvalidFileExtensionError } from './InvalidFileExtensionError';
 import { onModelLoaded } from './graphics/GraphicsBundle';
+import { useStatsStore } from '../store/stats';
 import { Object3D } from 'three';
 
 const VALID_FILE_EXTENSIONS = [
@@ -21,8 +22,14 @@ function uploadModelFile( file: File ) {
     }
     
     const loader = getAssociatedLoader( filename );
+
+    const statsStore = useStatsStore();
+    statsStore.startUpload();
+    statsStore.setFileSize( file.size );
+
     loader.load( file, (model: Object3D) => {
         onModelLoaded( model, loader.getRotation() );
+        statsStore.endUpload();
     });
 }
 
