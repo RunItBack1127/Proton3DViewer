@@ -176,6 +176,7 @@ header {
         .displayNameContainer {
             position: absolute;
             width: 100%;
+            z-index: -1;
             
             h1 {
                 font-weight: 200;

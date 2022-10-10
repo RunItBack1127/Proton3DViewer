@@ -42,7 +42,7 @@ const isShowingModelStats = computed(() => statsStore.isShowingModelStats);
             <ModelStats />
         </section>
     </div>
-    <footer>
+    <footer v-show="!isLoadingModel && !isDisplayingModel">
         <p>v1.0</p>
     </footer>
 </template>
