@@ -23,7 +23,7 @@ aside {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     height: 150px;
     transform: scaleX(0);
     transition: transform 200ms ease-in-out;
@@ -32,8 +32,6 @@ aside {
     align-items: center;
 
     article {
-        width: 100%;
-        max-width: 900px;
         margin: auto;
         display: flex;
         justify-content: center;

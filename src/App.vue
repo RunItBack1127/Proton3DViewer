@@ -7,11 +7,15 @@ import Modal from './components/Modal.vue';
 import ModelStats from './components/ModelStats.vue';
 
 import { useUploadStore } from './store/upload';
+import { useStatsStore } from './store/stats';
 
 const uploadStore = useUploadStore();
+const statsStore = useStatsStore();
+
 const isLoadingModel = computed(() => uploadStore.isLoadingModel);
 const isDisplayingModel = computed(() => uploadStore.isDisplayingModel);
 const isShowingErrorModal = computed(() => uploadStore.isShowingErrorModal);
+const isShowingModelStats = computed(() => statsStore.isShowingModelStats);
 
 </script>
 
@@ -36,7 +40,11 @@ const isShowingErrorModal = computed(() => uploadStore.isShowingErrorModal);
         :display="isShowingErrorModal"
         message="Proton does not currently support files with this extension."
         />
-    <ModelStats />
+    <div v-show="isShowingModelStats" class="modelStatsContainer">
+        <section>
+            <ModelStats />
+        </section>
+    </div>
 </template>
 
 <style scoped lang="scss">
@@ -119,6 +127,21 @@ main {
         p {
             font-weight: 200;
         }
+    }
+}
+
+.modelStatsContainer {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    section {
+        width: 100%;
+        margin: 0 20px 20px 20px;
     }
 }
 

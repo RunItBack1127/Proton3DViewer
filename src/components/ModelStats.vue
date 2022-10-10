@@ -1,5 +1,5 @@
 <template>
-    <aside v-show="isShowingModelStats">
+    <aside>
         <div class="fileTypeContainer">
             <h1>{{ modelName }}</h1>
         </div>
@@ -100,9 +100,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 aside {
-    position: fixed;
-    left: 30px;
-    bottom: 30px;
     width: 100%;
     max-width: 400px;
     border-radius: 20px;
