@@ -61,6 +61,7 @@ main {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 90%;
 
         h1 {
             font-size: 3.25rem;
@@ -70,9 +71,9 @@ main {
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 200;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             text-align: center;
         }
 
@@ -85,7 +86,7 @@ main {
 
     .uploadContainer {
 
-        width: 100%;
+        width: 90%;
         height: 75px;
         max-width: 600px;
         margin-top: 90px;
@@ -148,5 +149,22 @@ main {
 .modelContainer {
     width: 100%;
     height: calc(100vh - 100px);
+}
+
+@media screen and (max-width: 576px) {
+    main {
+        .introMessageContainer {
+            width: 95%;
+
+            h1 {
+                margin-bottom: 40px;
+                line-height: 3.75rem;
+            }
+
+            h2 {
+                margin-bottom: 30px;
+            }
+        }
+    }
 }
 </style>
