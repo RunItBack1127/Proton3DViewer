@@ -21,6 +21,7 @@ import { useStatsStore } from '../../store/stats';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
+let previousAnimationId: number;
 
 const NUM_POINTS_PER_TRIANGLE = 3;
 
@@ -120,7 +121,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     resize();
 
     function animate() {
-        requestAnimationFrame( animate );
+        previousAnimationId = requestAnimationFrame( animate );
         controls.update();
         
         const lightPos = new Vector3();
@@ -131,6 +132,15 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
         TWEEN.update();
     }
+    
+    /**
+     * Cancel the previous animation routine -
+     * necessary for eliminating client latency
+     * when loading multiple object files;
+     * essentially destroys all animation memory
+     * associated with the previous Three scene
+     */
+    cancelAnimationFrame(previousAnimationId);
     animate();
 
     window.addEventListener('resize', () => {

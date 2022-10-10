@@ -1,6 +1,6 @@
 <template>
     <aside>
-        <div class="fileTypeContainer">
+        <div class="fileNameContainer">
             <h1>{{ modelName }}</h1>
         </div>
         <section>
@@ -111,13 +111,13 @@ aside {
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 
-    .fileTypeContainer {
+    .fileNameContainer {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
         padding-bottom: 20px;
-        border-bottom: 1px solid #000;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px;
 
         h1 {
             width: 80%;
