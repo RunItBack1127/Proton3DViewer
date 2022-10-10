@@ -1,5 +1,5 @@
 <template>
-    <header :class="isLoadingModel || isDisplayingModel ? '' : 'showHeaderShadow'">
+    <header :class="isLoadingModel || isDisplayingModel ? 'displayModelHeader' : ''">
         <nav>
             <div class="menuOptionsContainer">
                 <form>
@@ -94,6 +94,7 @@ export default defineComponent({
 header {
     width: 100%;
     height: 100px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
 
     nav {
         display: grid;
@@ -164,8 +165,8 @@ header {
         }
     }
 
-    &.showHeaderShadow {
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+    &.displayModelHeader {
+        box-shadow: none;
     }
 }
 </style>

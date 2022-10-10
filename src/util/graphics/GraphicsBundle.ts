@@ -3,6 +3,7 @@ import {
     Box3,
     DirectionalLight,
     Group,
+    Mesh,
     Object3D,
     PerspectiveCamera,
     Scene,
@@ -19,7 +20,8 @@ import { useUploadStore } from '../../store/upload';
 
 let camera: PerspectiveCamera;
 let boundingSphere: Sphere;
-let group: Group;
+
+const NUM_POINTS_PER_TRIANGLE = 3;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -65,7 +67,7 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         1.65 * ( boundingSphere.center.z + boundingSphere.radius )
     );
 
-    group = new Group();
+    const group = new Group();
     group.add( model );
     
     if( rotation ) {
@@ -75,6 +77,30 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     }
 
     PROTON_SCENE.add( group );
+
+    let numVertices = 0;
+    let numTriangles = 0;
+
+    model.traverse((object) => {
+
+        /**
+         * Tracks the number of vertices and triangles
+         * in the present model file - for indexed geometry,
+         * use the index count for the number of triangles,
+         * otherwise delegate back to use the positional count
+         */
+        const mesh = object as Mesh;
+
+        if( mesh.geometry ) {
+            numVertices += mesh.geometry.attributes.position.count;
+            if( mesh.geometry.index != null ) {
+                numTriangles += mesh.geometry.index.count / NUM_POINTS_PER_TRIANGLE;
+            }
+            else {
+                numTriangles += mesh.geometry.attributes.position.count / NUM_POINTS_PER_TRIANGLE;
+            }
+        }
+    });
 
     const uploadStore = useUploadStore();
     uploadStore.setIsLoadingModel( false );
