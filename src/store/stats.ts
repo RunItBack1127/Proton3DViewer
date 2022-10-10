@@ -9,6 +9,8 @@ const useStatsStore = defineStore('stats', () => {
     const startUploadTime = ref(0);
     const endUploadTime = ref(0);
 
+    const isShowingModelStats = ref(false);
+
     function setNumVertices( vertices: number ) {
         numVertices.value = vertices;
     }
@@ -19,6 +21,10 @@ const useStatsStore = defineStore('stats', () => {
 
     function setFileSize( size: number ) {
         fileSize.value = size;
+    }
+    
+    function setIsShowingModelStats( showing: boolean ) {
+        isShowingModelStats.value = showing;
     }
 
     function startUpload() {
@@ -37,9 +43,11 @@ const useStatsStore = defineStore('stats', () => {
         numVertices,
         numTriangles,
         fileSize,
+        isShowingModelStats,
         setNumTriangles,
         setNumVertices,
         setFileSize,
+        setIsShowingModelStats,
         startUpload,
         endUpload,
         getUploadTime

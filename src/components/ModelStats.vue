@@ -1,5 +1,5 @@
 <template>
-    <aside>
+    <aside v-show="isShowingModelStats">
         <div class="fileTypeContainer">
             <h1>{{ modelName }}</h1>
         </div>
@@ -85,15 +85,17 @@ export default defineComponent({
             uploadTime: computed(() => {
                 const uploadTime = statsStore.getUploadTime();
                 return displayUploadTime( uploadTime );
-            })
+            }),
+            isShowingModelStats: computed(() => statsStore.isShowingModelStats),
+            setIsShowingModelStats: statsStore.setIsShowingModelStats
         }
     },
     methods: {
         closeStats() {
-            
+            this.setIsShowingModelStats( false );
         }
     }
-})
+});
 </script>
 
 <style lang="scss" scoped>
