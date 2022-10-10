@@ -118,8 +118,8 @@ header {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
 
     nav {
-        display: grid;
-        grid-template-columns: 175px auto 250px;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         width: 90%;
         height: 100%;
@@ -127,6 +127,7 @@ header {
         position: relative;
 
         .menuOptionsContainer {
+            width: 175px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -173,7 +174,7 @@ header {
         }
 
         .displayNameContainer {
-
+            position: absolute;
             width: 100%;
             
             h1 {
@@ -188,6 +189,16 @@ header {
 
     &.displayModelHeader {
         box-shadow: none;
+    }
+}
+
+@media screen and (max-width: 766px) {
+    header {
+        nav {
+            .displayNameContainer {
+                display: none;
+            }
+        }
     }
 }
 </style>

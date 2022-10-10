@@ -43,6 +43,7 @@ a.githubContainer {
         height: 100%;
         background: #fff;
         transition: width 200ms ease;
+        transform: translateX(20px);
     }
 
     .bannerContainer {
@@ -56,6 +57,7 @@ a.githubContainer {
         background: #222;
         color: #fff;
         padding: 30px 30px;
+        transform: translateX(20px);
     }
 
     svg {
@@ -69,7 +71,6 @@ a.githubContainer {
         height: 25px;
         z-index: 100;
         border-radius: 50px;
-        transform: translateX(-20px);
         transition: fill 100ms ease;
     }
 
@@ -116,7 +117,6 @@ a.githubContainer {
 
         svg {
             fill: #222;
-            transform: none;
         }
     }
 }
