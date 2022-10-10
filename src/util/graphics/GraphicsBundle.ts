@@ -5,7 +5,6 @@ import {
     Group,
     Object3D,
     PerspectiveCamera,
-    Quaternion,
     Scene,
     Sphere,
     Vector3,
