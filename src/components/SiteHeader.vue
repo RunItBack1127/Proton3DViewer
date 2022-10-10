@@ -33,7 +33,7 @@ import { computed, defineComponent } from 'vue';
 import SlidingButton from '@/components/SlidingButton.vue';
 import { useUploadStore } from '../store/upload';
 import { useStatsStore } from '../store/stats';
-import { uploadModelFile } from '../util/upload';
+import { delimitFileName, uploadModelFile } from '../util/upload';
 import { resetProtonCamera } from '../util/graphics/GraphicsBundle';
 import { InvalidFileExtensionError } from '../util/InvalidFileExtensionError';
 
@@ -45,6 +45,14 @@ export default defineComponent({
     data() {
         const uploadStore = useUploadStore();
         const statsStore = useStatsStore();
+        
+        function displayCurrentModelName( modelName: string ) {
+            const [properName, extension] = delimitFileName( modelName );
+            if( modelName !== "" ) {
+                return properName.toUpperCase().concat('.').concat( extension );
+            }
+            return "";
+        }
 
         return {
             setIsLoadingModel: uploadStore.setIsLoadingModel,
@@ -54,7 +62,10 @@ export default defineComponent({
             setIsShowingModelStats: statsStore.setIsShowingModelStats,
             isLoadingModel: computed(() => uploadStore.isLoadingModel),
             isDisplayingModel: computed(() => uploadStore.isDisplayingModel),
-            currentModelName: computed(() => uploadStore.currentModelName),
+            currentModelName: computed(() => {
+                const modelName = uploadStore.currentModelName;
+                return displayCurrentModelName( modelName );
+            }),
             isShowingModelStats: computed(() => statsStore.isShowingModelStats)
         }
     },
@@ -64,6 +75,7 @@ export default defineComponent({
             this.setIsLoadingModel( true );
             this.setIsDisplayingModel( false );
             this.setIsShowingErrorModal( false );
+            this.setIsShowingModelStats( false );
             
             const target = input.target as HTMLInputElement;
             const files = target.files;
