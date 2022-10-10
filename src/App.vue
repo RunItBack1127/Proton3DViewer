@@ -31,9 +31,6 @@ const isShowingModelStats = computed(() => statsStore.isShowingModelStats);
         <div class="uploadContainer">
             <label for="modelFileInput">Upload 3D model</label>
         </div>
-        <footer>
-            <p>v1.0</p>
-        </footer>
     </main>
     <LoadingScreen />
     <Modal
@@ -45,6 +42,9 @@ const isShowingModelStats = computed(() => statsStore.isShowingModelStats);
             <ModelStats />
         </section>
     </div>
+    <footer>
+        <p>v1.0</p>
+    </footer>
 </template>
 
 <style scoped lang="scss">
@@ -119,15 +119,15 @@ main {
             }
         }
     }
+}
 
-    footer {
-        position: fixed;
-        left: 50px;
-        bottom: 30px;
+footer {
+    position: absolute;
+    left: 15px;
+    transform: translateY(-35px);
 
-        p {
-            font-weight: 200;
-        }
+    p {
+        font-weight: 200;
     }
 }
 
@@ -165,6 +165,12 @@ main {
                 margin-bottom: 30px;
             }
         }
+    }
+}
+
+@media screen and (max-width: 850px) and (max-height: 800px) {
+    main {
+        min-height: 850px;
     }
 }
 </style>
