@@ -23,14 +23,14 @@
             <div class="displayNameContainer">
                 <h1>{{ currentModelName }}</h1>
             </div>
-            <SlidingButton />
+            <GitHubButton />
         </nav>
     </header>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import SlidingButton from '@/components/SlidingButton.vue';
+import GitHubButton from '@/components/GitHubButton.vue';
 import { useUploadStore } from '../store/upload';
 import { useStatsStore } from '../store/stats';
 import { delimitFileName, uploadModelFile } from '../util/upload';
@@ -40,7 +40,7 @@ import { InvalidFileExtensionError } from '../util/InvalidFileExtensionError';
 export default defineComponent({
     name: 'SiteHeader',
     components: {
-        SlidingButton
+        GitHubButton
     },
     data() {
         const uploadStore = useUploadStore();

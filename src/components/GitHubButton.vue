@@ -100,4 +100,24 @@ a.githubContainer {
         }
     }
 }
+
+@media screen and (max-width: 576px) {
+    a.githubContainer {
+        position: absolute;
+        --sliding-button-width: 25px;
+
+        .hideContainer {
+            display: none;
+        }
+        
+        .bannerContainer {
+            display: none;
+        }
+
+        svg {
+            fill: #222;
+            transform: none;
+        }
+    }
+}
 </style>
