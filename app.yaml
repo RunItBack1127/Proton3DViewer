@@ -7,9 +7,6 @@ handlers:
     static_files: dist/favicon.ico
     upload: dist/favicon.ico
   
-  - url: /(.*\.(js|css))$
-    static_dir: dist/assets
-  
   - url: /
     static_files: dist/index.html
     upload: dist/index.html
