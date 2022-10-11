@@ -21,7 +21,7 @@
                 <p>{{ numTriangles }}</p>
             </div>
         </section>
-        <button @click="closeStats">Close</button>
+        <button @click="(e: MouseEvent) => closeStats()">Close</button>
     </aside>
 </template>
 
