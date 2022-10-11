@@ -121,6 +121,7 @@ aside {
 
         h1 {
             width: 80%;
+            font-size: 1.65rem;
         }
     }
 
