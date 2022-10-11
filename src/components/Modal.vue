@@ -39,6 +39,7 @@ aside {
         background: #222;
         border-radius: 15px;
         width: 90%;
+        max-width: 1000px;
 
         p {
             text-align: center;

@@ -5,7 +5,7 @@ import { delimitFileName } from "../util/upload";
 const useUploadStore = defineStore('upload', () => {
     const isLoadingModel = ref(false);
     const isDisplayingModel = ref(false);
-    const isShowingErrorModal = ref(false);
+    const isShowingErrorModal = ref(true);
     const currentModelName = ref("");
 
     function setIsLoadingModel( loading: boolean ) {
