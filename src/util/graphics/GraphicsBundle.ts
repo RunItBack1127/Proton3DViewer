@@ -1,12 +1,10 @@
 import {
     AmbientLight,
-    AxesHelper,
     Box3,
     DirectionalLight,
     Group,
     Mesh,
     MeshBasicMaterial,
-    MeshDepthMaterial,
     MeshLambertMaterial,
     Object3D,
     PerspectiveCamera,
@@ -18,7 +16,7 @@ import {
     Vector3,
     WebGLRenderer
 } from 'three';
-import { MapControls, OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import * as TWEEN from '@tweenjs/tween.js';
 
@@ -26,15 +24,15 @@ import { Rotation } from './Rotation';
 import { useUploadStore } from '../../store/upload';
 import { useStatsStore } from '../../store/stats';
 
-let camera: PerspectiveCamera;
-let tempCam: PerspectiveCamera;
-let boundingSphere: Sphere;
 let previousAnimationId: number;
-let spherePoint: Vector3;
-let raycaster = new Raycaster();
+
+let PROTON_CAMERA: PerspectiveCamera;
+let PROTON_MODEL_BOUNDING_SPHERE: Sphere;
 let PROTON_SCENE: Scene;
+let PROTON_CAMERA_SPHERE: Mesh;
 
 const NUM_POINTS_PER_TRIANGLE = 3;
+const ZOOM_ANIMATION_DURATION = 150;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
@@ -50,14 +48,14 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
     PROTON_SCENE.add( mainLight, spotLight );
 
-    camera = new PerspectiveCamera( 45, window.innerWidth / ( window.innerHeight - 100 ), 0.1, 1000000 );
+    PROTON_CAMERA = new PerspectiveCamera( 45, window.innerWidth / ( window.innerHeight - 100 ), 0.1, 1000000 );
     const renderer = new WebGLRenderer({
         alpha: true,
         antialias: true
     });
     renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 
-    const controls = new OrbitControls( camera, renderer.domElement );
+    const controls = new OrbitControls( PROTON_CAMERA, renderer.domElement );
     PROTON_CANVAS?.appendChild( renderer.domElement );
 
     const initialModelBox = new Box3().setFromObject( model );
@@ -71,13 +69,13 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     model.translateZ( -modelCenter.z );
 
     const updatedModelBox = new Box3().setFromObject( model );
-    boundingSphere = new Sphere();
-    updatedModelBox.getBoundingSphere( boundingSphere );
+    PROTON_MODEL_BOUNDING_SPHERE = new Sphere();
+    updatedModelBox.getBoundingSphere( PROTON_MODEL_BOUNDING_SPHERE );
 
-    camera.position.set(
-        1.65 * boundingSphere.radius,
-        1.65 * boundingSphere.radius,
-        1.65 * boundingSphere.radius
+    PROTON_CAMERA.position.set(
+        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
+        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
+        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius
     );
 
     const group = new Group();
@@ -89,12 +87,11 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         group.rotateZ( rotation.getZ() );
     }
 
-    const sphereGeometry = new SphereGeometry( 1.65 * boundingSphere.radius );
-    const sphereMesh = new Mesh( sphereGeometry, new MeshLambertMaterial({
-        transparent: true,
-        opacity: 0.0
+    const sphereGeometry = new SphereGeometry( 1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius );
+    PROTON_CAMERA_SPHERE = new Mesh( sphereGeometry, new MeshBasicMaterial({
+        color: 0xffffff
     }) );
-    group.add( sphereMesh );
+    group.add( PROTON_CAMERA_SPHERE );
 
     PROTON_SCENE.add( group );
 
@@ -123,10 +120,10 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     });
 
     function resize() {
-        camera.aspect = window.innerWidth / ( window.innerHeight - 100 );
-        camera.updateProjectionMatrix();
+        PROTON_CAMERA.aspect = window.innerWidth / ( window.innerHeight - 100 );
+        PROTON_CAMERA.updateProjectionMatrix();
         renderer.setSize( window.innerWidth, window.innerHeight - 100 );
-        renderer.render( PROTON_SCENE, camera );
+        renderer.render( PROTON_SCENE, PROTON_CAMERA );
     }
     resize();
 
@@ -135,18 +132,18 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         controls.update();
         
         const lightPos = new Vector3();
-        lightPos.set( camera.position.x, camera.position.y, camera.position.z );
+        lightPos.set( PROTON_CAMERA.position.x, PROTON_CAMERA.position.y, PROTON_CAMERA.position.z );
         spotLight.position.copy( lightPos );
 
-        // if( intersects[ 0 ].object === sphereMesh ) {
-        //     spherePoint = intersects[ 0 ].point;
-        // }
-
-        renderer.render( PROTON_SCENE, camera );
+        renderer.render( PROTON_SCENE, PROTON_CAMERA );
 
         TWEEN.update();
     }
-    
+
+    const distXY = 1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius;
+    controls.minDistance = Math.sqrt( ( distXY * distXY ) + ( distXY * distXY ) );
+    controls.maxDistance = controls.minDistance * 2;
+
     /**
      * Cancel the previous animation routine -
      * necessary for eliminating client latency
@@ -157,11 +154,11 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     cancelAnimationFrame(previousAnimationId);
     animate();
 
-    resetProtonCamera();
+    adjustProtonCamera( 0 );
 
     const uploadStore = useUploadStore();
-    uploadStore.setIsLoadingModel( false );
     uploadStore.setIsDisplayingModel( true );
+    uploadStore.setIsLoadingModel( false );
 
     const statsStore = useStatsStore();
     statsStore.setNumVertices( numVertices );
@@ -173,46 +170,58 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
 }
 
 function resetProtonCamera() {
+    adjustProtonCamera( ZOOM_ANIMATION_DURATION );
+}
 
+function adjustProtonCamera( animationDuration: number ) {
+
+    const raycaster = new Raycaster();
     const pointer = new Vector2(0, 0);
-    raycaster.setFromCamera( pointer, camera );
+    raycaster.setFromCamera( pointer, PROTON_CAMERA );
 
     const intersects = raycaster.intersectObjects( PROTON_SCENE.children );
-    const spherePoint = intersects[ 0 ].point.clone().multiplyScalar( 1.75 );
+    const spherePoint = new Vector3();
+    if( intersects[ 0 ].object === PROTON_CAMERA_SPHERE ) {
+        const pos = intersects[ 0 ].point.clone().multiplyScalar( 1.75 );
+        spherePoint.set(
+            pos.x,
+            pos.y,
+            pos.z
+        );
+    }
+    else {
+        spherePoint.set(
+            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
+            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
+            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius
+        );
+    }
 
     new TWEEN.Tween({
-        x: camera.position.x,
-        y: camera.position.y,
-        z: camera.position.z
+        x: PROTON_CAMERA.position.x,
+        y: PROTON_CAMERA.position.y,
+        z: PROTON_CAMERA.position.z
     })
     .to({
         x: spherePoint.x,
         y: spherePoint.y,
         z: spherePoint.z
-    }, 200)
+    }, animationDuration)
     .easing(TWEEN.Easing.Linear.None)
     .onUpdate((coords) => {
-        camera.position.set(
+        PROTON_CAMERA.position.set(
             coords.x,
             coords.y,
             coords.z
         );
-    }).start();
-    
-    // const spherePoint = intersects[ 0 ].point;
-
-    // camera.position.set(
-    //     spherePoint.x,
-    //     spherePoint.y,
-    //     spherePoint.z
-    // );
-    
-    // camera.position.set(
-    //     spherePoint.x,
-    //     spherePoint.y,
-    //     spherePoint.z
-    // );
-    // console.log( spherePoint );
+    })
+    .onComplete(() => {
+        PROTON_CAMERA_SPHERE.material = new MeshLambertMaterial({
+            transparent: true,
+            opacity: 0.0
+        });
+    })
+    .start();
 }
 
 export { onModelLoaded, resetProtonCamera };
