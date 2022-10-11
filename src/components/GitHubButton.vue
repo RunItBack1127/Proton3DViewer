@@ -117,6 +117,17 @@ a.githubContainer {
 
         svg {
             fill: #222;
+            transition: none;
+        }
+
+        &:hover {
+
+            &.displayingModel {
+                
+                svg {
+                    fill: #222;
+                }
+            }
         }
     }
 }

@@ -38,12 +38,13 @@ aside {
         align-items: center;
         background: #222;
         border-radius: 15px;
+        width: 90%;
 
         p {
             text-align: center;
             font-size: 1rem;
             font-weight: 300;
-            padding: 20px 0;
+            padding: 20px 30px;
             color: #fff;
         }
     }
