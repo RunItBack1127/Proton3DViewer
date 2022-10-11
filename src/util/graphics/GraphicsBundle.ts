@@ -122,14 +122,6 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         }
     });
 
-    const uploadStore = useUploadStore();
-    uploadStore.setIsLoadingModel( false );
-    uploadStore.setIsDisplayingModel( true );
-
-    const statsStore = useStatsStore();
-    statsStore.setNumVertices( numVertices );
-    statsStore.setNumTriangles( numTriangles );
-
     function resize() {
         camera.aspect = window.innerWidth / ( window.innerHeight - 100 );
         camera.updateProjectionMatrix();
@@ -166,6 +158,14 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     animate();
 
     resetProtonCamera();
+
+    const uploadStore = useUploadStore();
+    uploadStore.setIsLoadingModel( false );
+    uploadStore.setIsDisplayingModel( true );
+
+    const statsStore = useStatsStore();
+    statsStore.setNumVertices( numVertices );
+    statsStore.setNumTriangles( numTriangles );
 
     window.addEventListener('resize', () => {
         resize();
