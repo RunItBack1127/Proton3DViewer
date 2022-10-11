@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { delimitFileName } from "../util/upload";
 
 const useUploadStore = defineStore('upload', () => {
     const isLoadingModel = ref(false);
