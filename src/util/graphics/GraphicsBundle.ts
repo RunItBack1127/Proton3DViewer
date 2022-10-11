@@ -72,11 +72,16 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     PROTON_MODEL_BOUNDING_SPHERE = new Sphere();
     updatedModelBox.getBoundingSphere( PROTON_MODEL_BOUNDING_SPHERE );
 
+    const refDistance = 1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius;
+
     PROTON_CAMERA.position.set(
-        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
-        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
-        1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius
+        refDistance,
+        refDistance,
+        refDistance
     );
+    controls.minDistance = Math.sqrt(
+        ( refDistance * refDistance ) +
+        ( refDistance * refDistance ) );
 
     const group = new Group();
     group.add( model );
@@ -140,10 +145,6 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
         TWEEN.update();
     }
 
-    const distXY = 1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius;
-    controls.minDistance = Math.sqrt( ( distXY * distXY ) + ( distXY * distXY ) );
-    controls.maxDistance = controls.minDistance * 2;
-
     /**
      * Cancel the previous animation routine -
      * necessary for eliminating client latency
@@ -180,22 +181,8 @@ function adjustProtonCamera( animationDuration: number ) {
     raycaster.setFromCamera( pointer, PROTON_CAMERA );
 
     const intersects = raycaster.intersectObjects( PROTON_SCENE.children );
-    const spherePoint = new Vector3();
-    if( intersects[ 0 ].object === PROTON_CAMERA_SPHERE ) {
-        const pos = intersects[ 0 ].point.clone().multiplyScalar( 1.75 );
-        spherePoint.set(
-            pos.x,
-            pos.y,
-            pos.z
-        );
-    }
-    else {
-        spherePoint.set(
-            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
-            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius,
-            1.65 * PROTON_MODEL_BOUNDING_SPHERE.radius
-        );
-    }
+    const sphereIntersect = intersects.filter((intersect) => intersect.object === PROTON_CAMERA_SPHERE);
+    const spherePoint = sphereIntersect[0].point.clone().multiplyScalar( 1.75 );
 
     new TWEEN.Tween({
         x: PROTON_CAMERA.position.x,
