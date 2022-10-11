@@ -4,7 +4,7 @@ import { ref } from "vue";
 const useUploadStore = defineStore('upload', () => {
     const isLoadingModel = ref(false);
     const isDisplayingModel = ref(false);
-    const isShowingErrorModal = ref(true);
+    const isShowingErrorModal = ref(false);
     const currentModelName = ref("");
 
     function setIsLoadingModel( loading: boolean ) {
