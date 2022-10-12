@@ -3,6 +3,9 @@ runtime: nodejs16
 instance_class: F1
 service: proton3dviewer
 handlers:
+  - url: .*
+    secure: always
+
   - url: /favicon.ico
     static_files: dist/favicon.ico
     upload: dist/favicon.ico
@@ -10,7 +13,3 @@ handlers:
   - url: /
     static_files: dist/index.html
     upload: dist/index.html
-  
-  - url: /.*
-    secure: always
-    redirect_http_response_code: 301
