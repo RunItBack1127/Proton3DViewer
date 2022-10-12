@@ -25,3 +25,4 @@ dist-ssr
 
 # GitHub Actions deploy files
 secret.json
+dispatch.y*ml
