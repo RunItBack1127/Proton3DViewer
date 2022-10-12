@@ -140,6 +140,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
 
     section {
         width: 100%;
