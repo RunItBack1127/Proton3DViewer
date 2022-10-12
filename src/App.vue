@@ -95,7 +95,8 @@ main {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
+            margin: auto;
+            width: 95%;
             height: 100%;
             cursor: pointer;
             background: #000;
@@ -154,7 +155,7 @@ footer {
 @media screen and (max-width: 576px) {
     main {
         .introMessageContainer {
-            width: 95%;
+            width: 92.5%;
 
             h1 {
                 margin-bottom: 40px;
@@ -165,12 +166,21 @@ footer {
                 margin-bottom: 30px;
             }
         }
+
+        .uploadContainer {
+
+            label {
+                background-size: 100%;
+                color: #fff;
+                font-weight: 300;
+            }
+        }
     }
 }
 
-@media screen and (max-width: 850px) and (max-height: 800px) {
+@media screen and (max-width: 850px) and (max-height: 875px) {
     main {
-        min-height: 850px;
+        min-height: 875px;
     }
 }
 </style>
