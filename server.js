@@ -4,6 +4,8 @@ const path = require('path');
 const PROTON_APP = express();
 const SERVER_PORT = 8080 || process.env.PORT;
 
+// Middleware for serving Vite static
+// build files
 PROTON_APP.use(express.static(path.join(__dirname, 'dist')));
 
 PROTON_APP.get('/', (req, res) => {
