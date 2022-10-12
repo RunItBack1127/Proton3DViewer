@@ -1,6 +1,3 @@
 dispatch:
   - url: "proton3dviewer.com/*"
     service: proton3dviewer
-
-  - url: "www.proton3dviewer.com/*"
-    service: proton3dviewer
