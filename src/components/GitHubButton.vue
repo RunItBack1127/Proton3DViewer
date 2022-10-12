@@ -37,6 +37,11 @@ a.githubContainer {
     height: 100%;
     transition: opacity 150ms ease;
 
+    .hideContainer,
+    .bannerContainer {
+        pointer-events: none;
+    }
+
     .hideContainer {
         position: absolute;
         z-index: 1;
@@ -85,7 +90,7 @@ a.githubContainer {
             }
 
             .hideContainer {
-                width: 0%;
+                width: 0;
             }
         }
     }

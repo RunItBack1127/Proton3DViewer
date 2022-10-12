@@ -56,6 +56,8 @@ function onModelLoaded( model: Object3D, rotation: Rotation ) {
     renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 
     const controls = new OrbitControls( PROTON_CAMERA, renderer.domElement );
+    controls.enablePan = false;
+
     PROTON_CANVAS?.appendChild( renderer.domElement );
 
     const initialModelBox = new Box3().setFromObject( model );
