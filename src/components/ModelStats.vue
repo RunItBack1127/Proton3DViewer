@@ -158,6 +158,7 @@ aside {
         padding: 15px 0;
         border-radius: 10px;
         margin-top: 30px;
+        pointer-events: all;
     }
 }
 </style>
