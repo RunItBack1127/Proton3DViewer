@@ -32,7 +32,7 @@ let PROTON_SCENE: Scene;
 let PROTON_CAMERA_SPHERE: Mesh;
 
 const NUM_POINTS_PER_TRIANGLE = 3;
-const ZOOM_ANIMATION_DURATION = 150;
+const ZOOM_ANIMATION_DURATION = 50;
 
 function onModelLoaded( model: Object3D, rotation: Rotation ) {
 
