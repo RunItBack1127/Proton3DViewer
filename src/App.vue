@@ -115,6 +115,7 @@ main {
             transition: background-size 150ms ease, color 150ms ease;
             
             &:hover {
+                font-weight: 300;
                 background-size: 100%;
                 color: #fff;
             }
