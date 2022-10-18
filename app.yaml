@@ -6,6 +6,10 @@ handlers:
   - url: /favicon.ico
     static_files: dist/favicon.ico
     upload: dist/favicon.ico
+
+  - url: /logo.png
+    static_files: dist/logo.png
+    upload: dist/logo.png
   
   - url: /
     secure: always
