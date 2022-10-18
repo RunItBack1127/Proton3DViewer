@@ -1,6 +1,6 @@
 # Proton 3D Viewer
 
-![Proton Logo](assets/proton-logo.png)
+![Proton Logo](public/logo.png)
 
 
 ## Description
